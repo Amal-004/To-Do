@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Application</title>
+</head>
+<body>
+
+<h1>To-Do List</h1>
+
+<input type="text" id="new-task" placeholder="Add a new task">
+<button onclick="addTask()">Add Task</button>
+
+<ul id="task-list"></ul>
+
+<script>
+    function addTask() {
+        let taskInput = document.getElementById('new-task');
+        let taskValue = taskInput.value;
+
+        if (taskValue === '') {
+            alert('Please enter a task.');
+            return;
+        }
+
+        let taskList = document.getElementById('task-list');
+        let li = document.createElement('li');
+        li.innerHTML = `<span>${taskValue}</span>
+                        <button onclick="editTask(this)">Edit</button>
+                        <button onclick="removeTask(this)">Delete</button>`;
+        taskList.appendChild(li);
+        taskInput.value = '';
+    }
+
+    function removeTask(button) {
+        let li = button.parentNode;
+        li.remove();
+    }
+
+    function editTask(button) {
+        let li = button.parentNode;
+        let taskSpan = li.querySelector('span');
+        let newTask = prompt('Edit your task:', taskSpan.textContent);
+        if (newTask !== null && newTask !== '') {
+            taskSpan.textContent = newTask;
+        }
+    }
+</script>
+
+</body>
+</html>
